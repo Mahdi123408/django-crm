@@ -1,0 +1,42 @@
+{% extends 'base/base_heder_footer.html' %}
+{% block title %}
+    صفحه ادمین
+{% endblock %}
+
+{% block content %}
+
+    <div>
+        <label for="#d">
+            نام و نام خانوادگی :
+        </label>
+        <span id="d">
+            {{ user.full_name }}
+        </span>
+    </div>
+<br><br><br>
+    <div>
+        <span>
+            درآمد ها :
+        </span>
+        <br>
+            {% for price_day in this_month_price_day %}
+            	<br><span>تاریخ {{ price_day.day }} درآمد : {{ price_day.price_split }}</span>
+            {% endfor %}
+    </div>
+    <br>
+    <span>جمع درآمد این ماه : {{ this_month_price_sum }} تومان . </span>
+    <br><br><br>
+    <div>
+        <span>
+            هزینه ها :
+        </span>
+        <br>
+            {% for price_day in this_month_export_price_day %}
+            	<br><span>تاریخ {{ price_day.day }} هزینه : {{ price_day.price_split }} توضیحات : {{ price_day.description }}</span>
+            {% endfor %}
+    </div>
+    <br>
+    <span>جمع هزینه های این ماه : {{ this_month_export_price_sum }} تومان . </span>
+    <br><br><br><br><br>
+    <span>خالص سود یا زیان : {{ total_price }} تومان .</span>
+{% endblock %}

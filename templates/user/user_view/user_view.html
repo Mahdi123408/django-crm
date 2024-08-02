@@ -1,0 +1,74 @@
+{% extends 'base/base_heder_footer.html' %}
+{% block title %}
+    صفحه مشخصات کارمند
+{% endblock %}
+
+{% block content %}
+    <div dir="rtl">
+        <label for="name">نام و نام خانوادگی : </label>
+        <span name="name">{{ user }}</span>
+    </div>
+    <br>
+    <div dir="rtl">
+        <label for="price">دستمزد شما به ازای هر ساعت : </label>
+        <span name="price">{{ user.price_split_user }}</span>
+    </div>
+    <br>
+    <div dir="rtl">
+        <label for="price">ساعات کاری شما در این ماه : </label>
+        {% for time in user.this_month_user_works %}
+            <br>
+            <label for="date">تاریخ : </label>
+            <span name="date">{{ time.date }}</span>
+
+            <label for="time1">شروع کار : </label>
+            <span name="time1">{{ time.start_time }}</span>
+
+            <label for="time2">پایان کار : </label>
+            <span name="time2">{{ time.end_time }}</span>
+
+            <label for="time3">میزان ساعت کاری در روز : </label>
+            <span name="time3">{{ time.time_work }}</span>
+        {% endfor %}
+
+    </div>
+
+    <div dir="rtl">
+        <label for="pr">درآمد شما در این ماه تا این لحظه : </label>
+        <span name="pr">{{ user.user_price_month }} تومان</span>
+    </div>
+    <br>
+    <div dir="rtl">
+        <label for="pr">برداشت های شما در این ماه تا این لحظه : </label>
+        {% if user.this_month_user_exports %}
+            {% for this_month_user_export in user.this_month_user_exports %}
+                <br>
+                <label for="ex">تاریخ : </label>
+                <span name="ex">{{ this_month_user_export.date }}</span>
+                <label for="ex">مقدار : </label>
+                <span name="ex">{{ this_month_user_export.price_count_split }}</span>
+                <label for="ex">توضیحات : </label>
+                <span name="ex">{{ this_month_user_export.description }}</span>
+            {% endfor %}
+            <br><br><br><br>
+            <label for="fx">کل برداشت ها در این ماه : </label>
+            <span name="fx">{{ user.user_price_exports_month }}</span>
+
+
+        {% endif %}
+        <br><br><br><br>
+        <label for="fx">مبلغ قابل دریافت تا این لحظه : </label>
+        <span name="fx">{{ user.this_month_real_price_user_split }}</span>
+    </div>
+    <br><br><br><br>
+    <form dir="rtl" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="start" value="{{ user.username }}">
+    <button type="submit" >شروع کار</button>
+    </form>
+    <form dir="rtl" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="end" value="{{ user.username }}">
+    <button type="submit" >پایان کار</button>
+    </form>
+{% endblock %}

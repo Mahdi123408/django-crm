@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+        {% endblock %}
+    </title>
+    {% block head_ref %}
+    {% endblock %}
+</head>
+<body dir="rtl">
+    {% block content %}
+    {% endblock %}
+{% if mes %}
+    <script>
+        alert("{{ mes }}")
+    </script>
+{% endif %}
+</body>
+</html>
